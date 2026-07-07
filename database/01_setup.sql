@@ -102,6 +102,8 @@ BEGIN
                Price       = @Price
         WHERE  Id = @Id
           AND  IsActive = 1;
+
+        SELECT @@ROWCOUNT AS RowsAffected;
     END TRY
     BEGIN CATCH
         THROW;
@@ -121,7 +123,10 @@ BEGIN
     BEGIN TRY
         UPDATE dbo.Products
         SET    IsActive = 0
-        WHERE  Id = @Id;
+        WHERE  Id = @Id
+          AND  IsActive = 1;
+
+        SELECT @@ROWCOUNT AS RowsAffected;
     END TRY
     BEGIN CATCH
         THROW;
