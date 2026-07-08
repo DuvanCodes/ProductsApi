@@ -6,11 +6,23 @@ API REST en ASP.NET Core (.NET 10) para gestión de productos. CRUD sobre SQL Se
 
 Requisitos: .NET SDK 10.0 y SQL Server (lo probé en SQL Server Express con autenticación de Windows).
 
-1. Ejecutar `database/01_setup.sql` en la instancia. El script es idempotente: crea la base `ProductsDb`, la tabla y los 5 SPs.
+1. Clonar el repo:
 
-2. Si la instancia no es `localhost\SQLEXPRESS`, ajustar `DefaultConnection` en `ProductsApi/appsettings.json`.
+```bash
+git clone https://github.com/DuvanCodes/ProductsApi.git
+```
 
-3. Correr:
+2. Ejecutar `database/01_setup.sql` en la instancia. El script es idempotente: crea la base `ProductsDb`, la tabla y los 5 SPs.
+
+```bash
+sqlcmd -S localhost\SQLEXPRESS -E -i database/01_setup.sql
+```
+
+   Si se usa un cliente gráfico (DBeaver, etc.), ejecutarlo como script completo, no statement por statement: contiene separadores `GO`.
+
+3. Si la instancia no es `localhost\SQLEXPRESS`, ajustar `DefaultConnection` en `ProductsApi/appsettings.json`.
+
+4. Correr:
 
 ```bash
 cd ProductsApi
@@ -40,7 +52,7 @@ La API queda en `http://localhost:5239`. En desarrollo hay UI interactiva en `ht
 
 El borrado de productos es lógico (`IsActive = 0`) por lo que prefiero conservar el histórico antes que borrar filas. El manejo de errores va en un middleware global que responde ProblemDetails y deja el detalle real solo en el log.
 
-Notas del template de .NET 10: desde .NET 9 ya no viene Swashbuckle, así que investigue y usé Scalar como UI sobre el OpenAPI nativo (solo en desarrollo) como se puede observar en el program. El SDK 10.0.301 además trae Microsoft.OpenApi 2.0.0 con un CVE alto reportado (GHSA-v5pm-xwqc-g5wc), por eso el `.csproj` pinea la 2.7.5 parcheada.
+Notas del template de .NET 10: desde .NET 9 ya no viene Swashbuckle, así que investigué y usé Scalar como UI sobre el OpenAPI nativo (solo en desarrollo) como se puede observar en el program. El SDK 10.0.301 además trae Microsoft.OpenApi 2.0.0 con un CVE alto reportado (GHSA-v5pm-xwqc-g5wc), por eso el `.csproj` pinea la 2.7.5 parcheada.
 
 ## Pendientes
 

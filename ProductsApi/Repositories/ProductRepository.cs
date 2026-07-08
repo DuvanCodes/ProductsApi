@@ -35,6 +35,7 @@ public class ProductRepository(IConfiguration configuration) : IProductRepositor
             commandType: CommandType.StoredProcedure);
     }
 
+    // TODO: paginación cuando el listado crezca
     public async Task<IEnumerable<Product>> GetAllAsync()
     {
         using var conn = CreateConnection();
