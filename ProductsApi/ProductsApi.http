@@ -48,3 +48,11 @@ Content-Type: application/json
 {
   "price": 10
 }
+
+### Get weather for a supported city
+GET {{ProductsApi_HostAddress}}/api/weather/cali
+Accept: application/json
+
+### Get weather for unsupported city (should return 404)
+GET {{ProductsApi_HostAddress}}/api/weather/paris
+Accept: application/json

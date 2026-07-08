@@ -7,6 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddMemoryCache();
+builder.Services.AddHttpClient<IWeatherService, WeatherService>(client =>
+{
+    client.BaseAddress = new Uri("https://api.open-meteo.com/");
+    client.Timeout = TimeSpan.FromSeconds(10);
+});
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
