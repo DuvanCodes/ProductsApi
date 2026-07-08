@@ -1,3 +1,4 @@
+using ProductsApi.Middleware;
 using ProductsApi.Repositories;
 using ProductsApi.Services;
 using Scalar.AspNetCore;
@@ -10,6 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
