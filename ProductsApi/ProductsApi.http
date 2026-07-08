@@ -1,6 +1,50 @@
 @ProductsApi_HostAddress = http://localhost:5239
+@productId = 1
 
-GET {{ProductsApi_HostAddress}}/weatherforecast/
+### Get all products
+GET {{ProductsApi_HostAddress}}/api/products
 Accept: application/json
 
-###
+### Get product by id
+GET {{ProductsApi_HostAddress}}/api/products/{{productId}}
+Accept: application/json
+
+### Create product
+POST {{ProductsApi_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Laptop",
+  "description": "Dell XPS 15",
+  "price": 1299.99
+}
+
+### Update product
+PUT {{ProductsApi_HostAddress}}/api/products/{{productId}}
+Content-Type: application/json
+
+{
+  "name": "Laptop v2",
+  "description": "Dell XPS 15 OLED",
+  "price": 1199.50
+}
+
+### Delete product (logical)
+DELETE {{ProductsApi_HostAddress}}/api/products/{{productId}}
+
+### Create with negative price (should return 400)
+POST {{ProductsApi_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Bad product",
+  "price": -5
+}
+
+### Create without name (should return 400)
+POST {{ProductsApi_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "price": 10
+}
